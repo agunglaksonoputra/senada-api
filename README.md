@@ -1,6 +1,6 @@
 # 🌐 Backend API - SENADA
 
-Ini adalah backend API untuk proyek SENADA yang dibangun menggunakan Node.js dan Express.js. API ini menyediakan endpoint untuk manajemen data.
+Ini adalah RESTful API backend yang dibangun menggunakan **Node.js**, **Express.js**, dan **MySQL** tanpa menggunakan ORM (menggunakan query SQL langsung). Proyek ini menyediakan endpoint untuk manajemen data pengguna, event, dan pembelian.
 
 ---
 
