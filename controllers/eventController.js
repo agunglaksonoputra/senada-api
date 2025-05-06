@@ -2,31 +2,55 @@ const eventService = require('../services/eventService');
 
 const getAllEvents = async (req, res) => {
   try {
-    // Memanggil service untuk mendapatkan semua events
-    const events = await eventService.getAllEvents();
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json({ message: 'Terjadi kesalahan saat mengambil data events', error: err.message });
+    console.log("Entering getEventById");
+    const event = await eventService.getAllEvents();
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-const getTop5Events = async (req, res) => {
+const getEventById = async (req, res) => {
   try {
-    const events = await eventService.getTop5Events();
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json({ message: 'Terjadi kesalahan', error: err.message });
+    console.log("Entering getEventById");
+    const { eventId } = req.params;
+    const event = await eventService.getEventById(eventId);
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
+
 
 const getEventsByCategory = async (req, res) => {
-  const { categoryId } = req.params;
   try {
-    const events = await eventService.getEventsByCategory(categoryId);
-    res.status(200).json(events);
-  } catch (err) {
-    res.status(500).json({ message: 'Terjadi kesalahan', error: err.message });
+    console.log("Entering getEventsByCategory");
+    const { categoryId } = req.params;
+    const event = await eventService.getEventsByCategory(categoryId);
+    if (!event) return res.status(404).json({ message: 'Event not found' });
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { getAllEvents, getTop5Events, getEventsByCategory };
+const getPopularEvents = async (req, res) => {
+  try {
+    console.log("Entering getPopularEvents");
+    const event = await eventService.getPopularEvents();
+    if (!event || event.length === 0) {
+      return res.status(404).json({ message: 'No events found' });
+    }
+    res.json(event);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+module.exports = { 
+  getAllEvents, 
+  getEventById,
+  getEventsByCategory,
+  getPopularEvents
+};

@@ -1,44 +1,37 @@
-const usersModel = require('../models/userModel');
+const userService = require('../services/userService');
 
-
-const getAllUsers = async (req, res) => {
-    try {
-      const results = await usersModel.getUsers();
-      res.status(200).json(results);
-    } catch (err) {
-      console.error('Error:', err);
-      res.status(500).json({ message: 'Error fetching users', error: err.message });
-    }
-};
-
-const getUser = async (req, res) => {
-    const userUid = req.params.userUid;
-    console.log('Received userUid:', userUid);
-  
-    try {
-      const result = await usersModel.getUserByUid(userUid);
-  
-      if (result.length === 0) {
-        // console.warn('User not found for email:', userUid);
-        return res.status(404).json({ message: 'User not found' });
-      }
-  
-    //   console.log('Sending user data:', result[0]);
-      res.status(200).json(result[0]);
-    } catch (err) {
-    //   console.error('Error fetching user:', err);
-      res.status(500).json({ message: 'Error fetching user', error: err.message });
-    }
-};  
-
-const createUser = async (req, res) => {
-  const userData = req.body;
+const getAllUser = async (req, res) => {
   try {
-    const result = await usersModel.createUser(userData);
-    res.status(201).json({ message: 'User created successfully' });
-  } catch (err) {
-    res.status(500).json({ message: 'Error creating user', error: err });
+    const user = await userService.getAllUser();
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
 
-module.exports = { getAllUsers, getUser, createUser };
+const createUser = async (req, res) => {
+  try {
+    const userData = req.body;
+    const user = await userService.createUser(userData);
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const getUserById = async (req, res) => {
+  try {
+    const { userUid } = req.params;
+    const user = await userService.getUserById(userUid);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json(user);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+module.exports = { 
+  getAllUser, 
+  createUser,
+  getUserById
+};
