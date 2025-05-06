@@ -28,14 +28,20 @@ cd senada-api
 npm install
 ````
 
-Jika sudah clone dan ingin update database
+## 🗃️ Database Setup
 ````bash
-# Sequelize Undoing Migrations
-npx sequelize-cli db:migrate:undo:all
-
-# Sequelize Migration
+# Jalankan migrasi database
 npx sequelize-cli db:migrate
 
-# Sequelize Seeder
+# Isi database dengan data awal
 npx sequelize-cli db:seed:all
+
+# Menghapus database
+npx sequelize-cli db:migrate:undo:all
+````
+
+## 🚀 Menjalankan Aplikasi
+````bash
+# Mode development
+npm run dev
 ````
