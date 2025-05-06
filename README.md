@@ -18,6 +18,18 @@ Ini adalah RESTful API backend yang dibangun menggunakan **Node.js**, **Express.
 ## 📦 Instalasi
 
 ```bash
+# Clone repositori
 git clone https://github.com/agunglaksonoputra/senada-api.git
+
+# Masuk ke direktori proyek
 cd senada-api
+
+# Instal dependensi
 npm install
+
+# Sequelize Migration
+npx sequelize-cli db:migrate
+
+# Sequelize Seeder
+npx sequelize-cli db:seed:all
+````
