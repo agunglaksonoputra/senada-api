@@ -40,7 +40,7 @@ npx sequelize-cli db:seed:all
 npx sequelize-cli db:migrate:undo:all
 ````
 
-## 🚀 Menjalankan Aplikasi
+## ▶️ Menjalankan Aplikasi
 ````bash
 # Mode development
 npm run dev
