@@ -26,6 +26,12 @@ cd senada-api
 
 # Instal dependensi
 npm install
+````
+
+Jika sudah clone dan ingin update database
+````bash
+# Sequelize Undoing Migrations
+npx sequelize-cli db:migrate:undo:all
 
 # Sequelize Migration
 npx sequelize-cli db:migrate
